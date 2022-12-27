@@ -29,15 +29,11 @@ const Carousel = () => {
   const [autoRotation, setAutoRotaion] = useState(true);
 
   const handlePrevBtnClick = () => {
-    currentIndex - 1 >= 0
-      ? setCurrentIndex(currentIndex - 1)
-      : setCurrentIndex(data.length - 1);
+    setCurrentIndex((currentIndex - 1 + data.length) % data.length);
   };
 
   const handleNextBtnClick = () => {
-    currentIndex + 1 < data.length
-      ? setCurrentIndex(currentIndex + 1)
-      : setCurrentIndex(0);
+    setCurrentIndex((currentIndex + 1) % data.length);
   };
 
   const autoRotateCarousel = () => {
@@ -46,9 +42,35 @@ const Carousel = () => {
       : setCurrentIndex(currentIndex + 1);
   };
 
+  const focusOnElement = (selector: string) => {
+    document.getElementById(selector)?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    switch (e.key) {
+      case "ArrowRight":
+        handleNextBtnClick();
+        focusOnElement(`tab-${(currentIndex + 1) % data.length}`);
+        break;
+      case "ArrowLeft":
+        handlePrevBtnClick();
+        focusOnElement(`tab-${(currentIndex - 1 + data.length) % data.length}`);
+        break;
+      case "Home":
+        setCurrentIndex(0);
+        break;
+      case "End":
+        setCurrentIndex(data.length - 1);
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     let interval: number;
-    if (autoRotation) {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (autoRotation && !query.matches) {
       interval = setInterval(() => {
         autoRotateCarousel();
       }, 5000);
@@ -131,11 +153,14 @@ const Carousel = () => {
         <div
           className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
           role="tablist"
+          onFocus={() => setAutoRotaion(false)}
+          onBlur={() => setAutoRotaion(true)}
         >
           {data.map((item, index) => {
             const active = currentIndex === index;
             return (
               <button
+                id={`tab-${index}`}
                 key={item.id}
                 type="button"
                 role="tab"
@@ -145,7 +170,9 @@ const Carousel = () => {
                 className={`w-3 h-3 rounded-full ${
                   active ? "bg-gray-100" : "bg-gray-400"
                 }`}
+                tabIndex={active ? undefined : -1}
                 onClick={() => setCurrentIndex(index)}
+                onKeyDown={handleKeyDown}
               ></button>
             );
           })}
