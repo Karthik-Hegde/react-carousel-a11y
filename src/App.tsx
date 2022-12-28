@@ -2,7 +2,7 @@ import Carousel from "./components/Carousel";
 
 function App() {
   return (
-    <main className="h-[75vh]" aria-labelledby="heading">
+    <main className="h-[75vh]">
       <Carousel />
     </main>
   );

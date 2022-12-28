@@ -80,10 +80,7 @@ const Carousel = () => {
   });
 
   return (
-    <section className="w-full h-full" aria-labelledby="heading">
-      {/* <h1 id="heading" className="m-4 font-bold text-3xl">
-        Welcome
-      </h1> */}
+    <section className="w-full h-full">
       <div
         className="relative h-full flex flex-nowrap overflow-hidden"
         role="region"
@@ -105,13 +102,15 @@ const Carousel = () => {
             aria-controls="carousel-items"
             onClick={handlePrevBtnClick}
           >
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-white group-focus:outline-none">
               <svg
                 className="w-5 h-5 text-white sm:w-6 sm:h-6 "
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -131,13 +130,15 @@ const Carousel = () => {
             aria-label="Next"
             aria-controls="carousel-items"
           >
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-white group-focus:outline-none">
               <svg
                 className="w-5 h-5 text-white sm:w-6 sm:h-6 "
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -189,15 +190,18 @@ const Carousel = () => {
               style={{ transform: `translate(-${currentIndex * 100}%)` }}
               role="group"
               aria-roledescription="slide"
-              aria-labelledby="slide-label"
+              aria-labelledby={`slide-label-${index}`}
             >
               <img
                 src={item.imageSrc}
                 className="block w-full h-full object-cover"
                 alt={item.altText}
               />
-              <div className="hidden md:block absolute bottom-12 left-0 right-0 text-center">
-                <h5 id="slide-label" className="text-xl text-white">
+              <div className="hidden md:block absolute bottom-12 left-0 right-0 text-center bg-gray-900">
+                <h5
+                  id={`slide-label-${index}`}
+                  className="text-xl text-white drop-shadow-md"
+                >
                   {item.title}
                 </h5>
                 <p className="text-gray-300">{item.subTitle}</p>
