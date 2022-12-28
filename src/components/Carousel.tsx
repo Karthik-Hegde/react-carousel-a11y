@@ -5,21 +5,21 @@ const data = [
     id: "item-1",
     imageSrc: "https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg",
     altText: "Man sitting on a rock watching sunset",
-    title: "First slide",
+    title: "Nothing is impossible",
     subTitle: "Subtitle",
   },
   {
     id: "item-2",
     imageSrc: "https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg",
     altText: "Stars",
-    title: "Second slide",
+    title: "So many books, so little time",
     subTitle: "Subtitle",
   },
   {
     id: "item-3",
     imageSrc: "https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg",
     altText: "Ocean",
-    title: "Third slide",
+    title: "You only live once, but if you do it right, once is enough.",
     subTitle: "Subtitle",
   },
 ];
@@ -197,14 +197,14 @@ const Carousel = () => {
                 className="block w-full h-full object-cover"
                 alt={item.altText}
               />
-              <div className="hidden md:block absolute bottom-12 left-0 right-0 text-center bg-gray-900">
+              <div className="hidden p-5 md:block absolute bottom-12 left-0 right-0 text-center bg-[rgba(0,0,0,0.6)]">
                 <h5
                   id={`slide-label-${index}`}
-                  className="text-xl text-white drop-shadow-md"
+                  className="text-xl text-white font-bold"
                 >
                   {item.title}
                 </h5>
-                <p className="text-gray-300">{item.subTitle}</p>
+                {/* <p className="text-gray-300">{item.subTitle}</p> */}
               </div>
             </div>
           ))}
